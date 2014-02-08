@@ -1,0 +1,15 @@
+$def with (overtimes)
+<ul>
+    $ cnt = 0
+    $for overtime in overtimes:
+        <li>$overtime.day status:<em>$overtime.overtime</em></li>
+        $if overtime.overtime == 1:
+            $ cnt = cnt + 1
+</ul>
+<p>This month overtime <b> $cnt</b> days.</p>
+<form method="post" action="over">
+    <input type="submit" value="overtime" /></p>
+</form>
+<form method="post" action="normal">
+    <input type="submit" value="normal" /></p>
+</form>
