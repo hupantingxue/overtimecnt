@@ -28,3 +28,5 @@ insert into overtime (month, day, overtime) values('201402', '20140201', 0);
 db = web.database(dbn='mysql', user='db_user', pw='db_pwd', db='db_dbname')
 </code>
 </pre>
+
+<p>The value of the overtime in database is 0 means "work normal" whereas 1 means "work overtime".</p>
