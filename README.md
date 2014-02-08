@@ -1,17 +1,25 @@
 overtimecnt
 ===========
 
-statistics overtime days per month
+<p>statistics overtime days per month</p>
 
-Using your database engines admin interface, create a simple table in your database:
-CREATE TABLE `overtime` (
+<p>Using your database engines admin interface, create a simple table in your database:</p>
+<pre>
+<code>
+"CREATE TABLE `overtime` (
   `month` varchar(11) DEFAULT '',
   `day` varchar(11) DEFAULT '',
   `overtime` tinyint(1) DEFAULT '0',
    PRIMARY KEY (`day`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin;
+) ENGINE=MyISAM DEFAULT CHARSET=latin;"
+</code>
+</pre>
 
-And an initial row:
+<p>And an initial row:</p>
+<pre>
+<code>
 insert into overtime (month, day, overtime) values('201402', '20140201', 0);
+</code>
+</pre>
 
 
