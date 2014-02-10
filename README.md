@@ -30,3 +30,9 @@ db = web.database(dbn='mysql', user='db_user', pw='db_pwd', db='db_dbname')
 </pre>
 
 <p>The value of the overtime in database is 0 means "work normal" whereas 1 means "work overtime".</p>
+<p>Run server:</p>
+<pre>
+<code>
+python overtime.py  port
+</code>
+</pre>
