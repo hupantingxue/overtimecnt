@@ -4,6 +4,8 @@ import sae
 import sae.const
 from sqlalchemy import *
 from sqlalchemy.pool import NullPool
+from sqlalchemy.ext.compiler import compiles
+from sqlalchemy.sql.expression import Insert
 
 import web
 import time
@@ -28,8 +30,12 @@ db = create_engine(dburl, connect_args={'charset':'utf8'}, poolclass=NullPool)
 metadata = MetaData(db)
 dbovertime = Table('overtime', metadata, autoload=True)
 
-#nport = int(sae.const.MYSQL_PORT)
-#db = web.database(dbn='mysql', host=sae.const.MYSQL_HOST, port=nport, user=sae.const.MYSQL_USER, pw=sae.const.MYSQL_PASS, db=sae.const.MYSQL_DB)
+@compiles(Insert)
+def append_string(insert, compiler, **kw):
+    s = compiler.visit_insert(insert, **kw)
+    if 'append_string' in insert.kwargs:
+        return s + " " + insert.kwargs['append_string']
+    return s
 
 def getTime():
     t=time.localtime(time.time())
@@ -47,15 +53,16 @@ class index:
 class over:
     def POST(self):
         mon, day = getTime()
-        #n = db.update('overtime', where='day=$day', overtime=1, vars = locals())
-        dbovertime.update().where(dbovertime.c.day==day).values(overtime=1).execute()
+        #dbovertime.update().where(dbovertime.c.day==day).values(overtime=1).execute()
+        dbovertime.insert(append_string = 'ON DUPLICATE KEY UPDATE overtime=1').execute(month=mon, day=day, overtime=1)
         raise web.seeother('/')
 
 class normal:
     def POST(self):
         mon, day = getTime()
         #n = db.update('overtime', where='day=$day', overtime=0, vars = locals())
-        dbovertime.update().where(dbovertime.c.day==day).values(overtime=0).execute()
+        #dbovertime.update().where(dbovertime.c.day==day).values(overtime=0).execute()
+        dbovertime.insert(append_string = 'ON DUPLICATE KEY UPDATE overtime=0').execute(month=mon, day=day, overtime=0)
         raise web.seeother('/')
 
 web.config.debug = True
