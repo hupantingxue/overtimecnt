@@ -45,21 +45,34 @@ def getTime():
 
 class index:
     def GET(self):
-        mon, day = getTime()
+        _mon, _day = getTime()
+        try:
+            i = web.input()
+            mon = i.month
+        except Exception as e:
+            mon = _mon
         #overs = db.select('overtime', where='month=$mon', order='day', vars=locals())
         overs = dbovertime.select().where(dbovertime.c.month==mon).order_by(dbovertime.c.day).execute()
         return render.index(overs)
 
 class over:
     def POST(self):
-        mon, day = getTime()
+        mon, _day = getTime()
+        i = web.input()
+        day = i.overday
+        if "0" == day:
+            day = _day
         #dbovertime.update().where(dbovertime.c.day==day).values(overtime=1).execute()
         dbovertime.insert(append_string = 'ON DUPLICATE KEY UPDATE overtime=1').execute(month=mon, day=day, overtime=1)
         raise web.seeother('/')
 
 class normal:
     def POST(self):
-        mon, day = getTime()
+        mon, _day = getTime()
+        i = web.input()
+        day = i.overday
+        if "0" == day:
+            day = _day
         #n = db.update('overtime', where='day=$day', overtime=0, vars = locals())
         #dbovertime.update().where(dbovertime.c.day==day).values(overtime=0).execute()
         dbovertime.insert(append_string = 'ON DUPLICATE KEY UPDATE overtime=0').execute(month=mon, day=day, overtime=0)
