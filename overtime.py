@@ -48,7 +48,6 @@ class normal:
         overday = i.overday
         if "0" == overday:
             overday = myday
-        mon, day = getTime()
         n = db.update('overtime', where='day=$overday', overtime=0, vars = locals())
         raise web.seeother('/')
 
