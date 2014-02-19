@@ -22,7 +22,7 @@ insert into overtime (month, day, overtime) values('201402', '20140201', 0);
 </code>
 </pre>
 
-<p>Return to overtime.py to change the datebase config:</p>
+<p>Return to overtime.py to change the datebase config, while the forsae branch you do not need to change it.</p>
 <pre>
 <code>
 db = web.database(dbn='mysql', user='db_user', pw='db_pwd', db='db_dbname')
