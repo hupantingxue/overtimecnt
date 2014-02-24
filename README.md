@@ -1,6 +1,7 @@
 overtimecnt
 ===========
 
+<h3>Usage</h3>
 <p>statistics overtime days per month</p>
 
 <p>Using your database engines admin interface, create a simple table in your database:</p>
@@ -36,3 +37,8 @@ db = web.database(dbn='mysql', user='db_user', pw='db_pwd', db='db_dbname')
 python overtime.py  port
 </code>
 </pre>
+
+<h3>Author</h3>
+hupantingxue
+<h3>License</h3>
+Apache 2.0
