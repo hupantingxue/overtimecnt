@@ -1,9 +1,8 @@
 overtimecnt
 ===========
-
-<h3>Usage</h3>
 <p>statistics overtime days per month</p>
 
+<h3>Usage</h3>
 <p>Using your database engines admin interface, create a simple table in your database:</p>
 <pre>
 <code>
